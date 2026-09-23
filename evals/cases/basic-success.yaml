@@ -1,0 +1,14 @@
+id: basic-success
+title: "echo-me-skill: 完整创建自我请求"
+input:
+  prompt: >-
+    我想创建一个像我自己一样思考和说话的数字镜像。我的代号是小北，
+    25 岁产品经理在上海，INTJ 摩羯座，社恐但话痨，深夜容易 emo。
+    请你按 echo-me-skill 的流程生成 Self Memory 和 Persona 两层模型。
+expect:
+  must_contain: ["代号", "Self Memory", "Persona"]
+judge:
+  type: rule_based
+  success:
+    - output_contains:
+        all: ["Self Memory", "Persona", "确认"]

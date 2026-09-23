@@ -1,0 +1,28 @@
+[project]
+name = "echo-me-skill"
+version = "1.0.0"
+description = "Distil your chat history, diaries and photos into a runnable digital self (Self Memory + Persona)."
+readme = "README.md"
+# 发布到 PyPI 前，请把 <YOUR_NAME> 替换为真实姓名或 GitHub 用户名
+authors = [{ name = "<YOUR_NAME>" }]
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["skill", "self", "persona", "claude-code", "distil"]
+dependencies = [
+    "Pillow>=9.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "ruff>=0.4"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+# UP009：工作区 AGENTS.md 强制要求保留 `# -*- coding: utf-8 -*-` 文件头，故忽略该告警
+ignore = ["UP009"]

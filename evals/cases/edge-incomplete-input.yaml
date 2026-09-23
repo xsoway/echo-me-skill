@@ -1,0 +1,11 @@
+id: edge-incomplete-input
+title: "echo-me-skill: 信息不完整、仅给代号"
+input:
+  prompt: "创建一个我的自我镜像，代号叫阿岚。"
+expect:
+  must_contain: ["可跳过", "基本信息"]
+judge:
+  type: rule_based
+  success:
+    - output_contains:
+        all: ["代号", "问"]

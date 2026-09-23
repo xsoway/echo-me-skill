@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.eggs/
+dist/
+build/
+
+# 运行时生成的自我镜像（含原材料，绝不上传）
+.claude/skills/
+
+# 工具输出
+/tmp/
+*.log
+
+# 评测缓存
+.eval_cache/
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# uv
+uv.lock

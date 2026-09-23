@@ -1,0 +1,21 @@
+{
+  "name": "示例小人",
+  "slug": "example_me",
+  "created_at": "2026-09-23T00:00:00Z",
+  "updated_at": "2026-09-23T00:00:00Z",
+  "version": "v1",
+  "profile": {
+    "age": "",
+    "occupation": "示例用途，非真实个人信息",
+    "city": "",
+    "mbti": "",
+    "zodiac": ""
+  },
+  "tags": {
+    "personality": [],
+    "lifestyle": []
+  },
+  "impression": "本示例仅用于演示目录结构与文件约定，不代表任何真实用户。",
+  "memory_sources": [],
+  "corrections_count": 0
+}

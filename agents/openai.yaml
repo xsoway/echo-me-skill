@@ -1,0 +1,25 @@
+# echo-me-skill discovery metadata
+# key must match directory name and SKILL.md frontmatter `name`
+metadata:
+  key: "echo-me-skill"
+  name: echo-me-skill
+  version: 1.0.0
+  description: >
+    将你的聊天记录、日记、照片与你对自我的描述，解构为一套可运行的
+    数字自画像：Self Memory（自我记忆）+ Persona（人格模型），生成一个
+    能用你的口头禅思考、用你的逻辑回话的数字副本。Distill yourself into
+    a runnable digital self from chat history, diaries and photos.
+  author: "<YOUR_NAME>"
+  license: MIT
+  tags:
+    - skill
+    - self
+    - persona
+    - distil
+    - claude-code
+  when_to_use:
+    - 创建一个"像你一样思考说话"的自我镜像 Skill
+    - 从聊天记录/日记/照片蒸馏个人数字副本
+    - 生成 Self Memory + Persona 双层人格模型
+    - 追加材料进化已有自我/对话纠正
+  languages: [zh, en]
