@@ -1,0 +1,9 @@
+# 统一行尾，保证跨平台换行一致
+* text=auto eol=lf
+
+# 二进制文件不参与 diff
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

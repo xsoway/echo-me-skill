@@ -23,7 +23,7 @@
 ## 3. 元数据约束
 
 - `agents/openai.yaml` 的 `metadata.key` 必须等于目录名。
-- `author` 在发布前必须替换真实姓名或 GitHub 用户名（当前为 `<YOUR_NAME>` 占位符）。
+- `author` 必须为真实作者（github username 或真实姓名）；当前为 `xsoway`。缺失或为 `<YOUR_NAME>` 占位符时视为未就绪。
 
 ## 4. 评测约束
 

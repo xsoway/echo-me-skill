@@ -42,7 +42,7 @@ echo-me-skill 是一个符合 skill-spec 工程契约的 Skill 包：把聊天�
 2. **原材料不入库**：聊天记录、照片、个人信息等只能落到 `.claude/skills/{slug}/memories/`（gitignored），绝不可写入本包仓库的文档、示例、评测或日志。
 3. **无绝对路径 / 无密钥**：仓库内 `.md`/`.yaml` 不得含本机绝对路径（例如指向用户主目录的路径）或凭据样式内容。
 4. **验证诚实**：`validate_skill_package.py` PASS 只证明包完整，不等于模型行为已验证；未运行真实评测时必须标注。
-5. **合规署名**：LICENSE 与 `agents/openai.yaml` 的 `<YOUR_NAME>` 占位符是发布前置条件，未替换前不得宣称"可发布"。对原 `yourself-skill` 的衍生声明保留在 LICENSE。
+5. **合规署名**：LICENSE 与 `agents/openai.yaml` 的作者署名必须为真实作者（当前 `xsoway`），缺失或仍为占位符时不得宣称"可发布"。对原 `yourself-skill` 的衍生声明保留在 LICENSE。
 
 ## 检查清单（默认）
 

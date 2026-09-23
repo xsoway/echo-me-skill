@@ -9,7 +9,7 @@ metadata:
     数字自画像：Self Memory（自我记忆）+ Persona（人格模型），生成一个
     能用你的口头禅思考、用你的逻辑回话的数字副本。Distill yourself into
     a runnable digital self from chat history, diaries and photos.
-  author: "<YOUR_NAME>"
+  author: "xsoway"
   license: MIT
   tags:
     - skill

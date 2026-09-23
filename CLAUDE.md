@@ -35,4 +35,4 @@ echo-me-skill：把聊天记录/日记/照片蒸馏成可运行的"数字自画�
 2. **原材料不入库**：只落 `.claude/skills/{slug}/memories/`（gitignored）。
 3. **无绝对路径/无密钥**：仓库内的 `.md`/`.yaml` 不得含本机绝对路径（指向用户主目录的路径）或凭据样式内容。
 4. **验证诚实**：结构校验 PASS 不等于模型行为已验证。
-5. **合规署名**：`LICENSE`/`agents/openai.yaml` 的 `<YOUR_NAME>` 未替换前不得宣称可发布。
+5. **合规署名**：`LICENSE`/`agents/openai.yaml` 作者署名缺失或仍为占位符时不得宣称可发布（当前作者为 `xsoway`）。

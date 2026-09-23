@@ -63,10 +63,10 @@
 
 ## 7. 发布清单
 
-- [ ] LICENSE / agents 的 `<YOUR_NAME>` 替换为真实姓名或 GitHub 用户名
-- [ ] `git init` 从零重建历史，脱钩原 origin
-- [ ] `validate` + pytest + ruff 全绿
-- [ ] 文档（README/README_EN/PRD）齐全
+- [x] LICENSE / agents / pyproject 作者署名已替换为 `xsoway`
+- [ ] `git init` 从零重建历史，脱钩原 origin（当前单提交，无 origin）
+- [x] `validate` + pytest + ruff 全绿
+- [ ] 文档（README.md / README.zh-CN.md / PRD）齐全
 - [ ] 归档 verify-log
 
 ## 8. 风险与回滚
