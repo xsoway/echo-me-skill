@@ -58,7 +58,10 @@
   .nav-links a:hover{color:var(--fg)}
   .nav-links .btn{background:var(--bg-3);border:1px solid var(--border);color:var(--fg);padding:7px 14px;border-radius:9px}
   .nav-links .btn:hover{color:var(--fg);border-color:var(--accent);text-decoration:none}
-  .lang{color:var(--fg-faint);font-size:.85rem}
+  .lang{color:var(--fg-faint);font-size:.85rem;display:flex;gap:4px;align-items:center}
+  .lang button{background:none;border:none;color:inherit;cursor:pointer;font-size:.85rem;padding:2px 4px;font-family:inherit}
+  .lang button.active{color:var(--accent);font-weight:700}
+  .lang .sep{opacity:.4}
 
   .hero{position:relative;z-index:1;padding:96px 0 72px;text-align:center}
   .hero .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
@@ -147,14 +150,16 @@
   <div class="wrap nav">
     <div class="brand"><span class="dot"></span> echo-me-skill</div>
     <nav class="nav-links">
-      <a href="#what" class="hide-sm">What</a>
-      <a href="#concept" class="hide-sm">Concepts</a>
-      <a href="#pipeline" class="hide-sm">Pipeline</a>
-      <a href="#quickstart" class="hide-sm">Quick start</a>
-      <a href="#manage" class="hide-sm">Commands</a>
-      <a href="#safety" class="hide-sm">Safety</a>
-      <a class="btn" href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener">GitHub ↗</a>
-      <span class="lang"><a href="https://github.com/xsoway/echo-me-skill/blob/main/README.zh-CN.md" target="_blank" rel="noopener">中文</a></span>
+      <a href="#what" class="hide-sm" data-i18n="nav.what">What</a>
+      <a href="#concept" class="hide-sm" data-i18n="nav.concepts">Concepts</a>
+      <a href="#pipeline" class="hide-sm" data-i18n="nav.pipeline">Pipeline</a>
+      <a href="#quickstart" class="hide-sm" data-i18n="nav.quick">Quick start</a>
+      <a href="#manage" class="hide-sm" data-i18n="nav.commands">Commands</a>
+      <a href="#safety" class="hide-sm" data-i18n="nav.safety">Safety</a>
+      <a class="btn" href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener" data-i18n="nav.github">GitHub ↗</a>
+      <span class="lang">
+        <button type="button" data-lang="en">EN</button><span class="sep">|</span><button type="button" data-lang="zh">中文</button>
+      </span>
     </nav>
   </div>
 </header>
@@ -167,12 +172,12 @@
       <img alt="Status" src="https://img.shields.io/badge/status-beta-yellow.svg">
       <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-blue.svg">
     </div>
-    <h1>Distill yourself into a<br><span class="grad">runnable digital self.</span></h1>
-    <p class="sub">Decompose your chat history, diaries and photos into a two-layer model — <strong>Self Memory</strong> + <strong>Persona</strong> — that thinks and speaks the way you do.</p>
-    <p class="tag">Discoverable · Installable · Evallable — a personal AI twin as a self-contained Skill package</p>
+    <h1 data-i18n="hero.title"><span class="grad">runnable digital self.</span></h1>
+    <p class="sub" data-i18n="hero.sub">Decompose your chat history, diaries and photos into a two-layer model — <strong>Self Memory</strong> + <strong>Persona</strong> — that thinks and speaks the way you do.</p>
+    <p class="tag" data-i18n="hero.tag">Discoverable · Installable · Evallable — a personal AI twin as a self-contained Skill package</p>
     <div class="cta">
-      <a class="btn primary" href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener">★ Star on GitHub</a>
-      <a class="btn ghost" href="#quickstart">Get started ↓</a>
+      <a class="btn primary" href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener" data-i18n="hero.star">★ Star on GitHub</a>
+      <a class="btn ghost" href="#quickstart" data-i18n="hero.start">Get started ↓</a>
     </div>
   </div>
 </section>
@@ -180,16 +185,36 @@
 <section id="what">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">What it is</div>
-      <h2>An honest digital mirror</h2>
-      <p>Most attempts to "digitize yourself" either hallucinate a persona from nothing, or dump raw transcripts without structure. <strong>echo-me-skill</strong> avoids both.</p>
+      <div class="kicker" data-i18n="what.kicker">What it is</div>
+      <h2 data-i18n="what.title">An honest digital mirror</h2>
+      <p data-i18n="what.desc">Most attempts to "digitize yourself" either hallucinate a persona from nothing, or dump raw transcripts without structure. <strong>echo-me-skill</strong> avoids both.</p>
     </div>
     <table class="cmp">
-      <tr><th>Pain point</th><th>Typical approach</th><th>echo-me-skill</th></tr>
-      <tr><td>No real material → fabricated persona</td><td>Model "guesses" your personality</td><td><span class="good">Never fabricates:</span> only raw material you provide, or explicitly stated facts</td></tr>
-      <tr><td>Raw data leaks into the repo</td><td><span class="bad">Transcripts committed to git</span></td><td><span class="good">Material only lands</span> in gitignored <code>.claude/skills/{slug}/memories/</code></td></tr>
-      <tr><td>One flat blob, hard to evolve</td><td>A single "about me" file</td><td><span class="good">Two-layer model</span> + Correction layer, append-only evolution</td></tr>
-      <tr><td>Untestable packaging</td><td>Copy-pasted skill folders</td><td><span class="good">Skill-spec contract</span> + validator + pytest + ruff</td></tr>
+      <tr>
+        <th data-i18n="what.h1">Pain point</th>
+        <th data-i18n="what.h2">Typical approach</th>
+        <th data-i18n="what.h3">echo-me-skill</th>
+      </tr>
+      <tr>
+        <td data-i18n="what.r1c1">No real material → fabricated persona</td>
+        <td data-i18n="what.r1c2">Model "guesses" your personality</td>
+        <td data-i18n="what.r1c3"><span class="good">Never fabricates:</span> only raw material you provide, or explicitly stated facts</td>
+      </tr>
+      <tr>
+        <td data-i18n="what.r2c1">Raw data leaks into the repo</td>
+        <td data-i18n="what.r2c2"><span class="bad">Transcripts committed to git</span></td>
+        <td data-i18n="what.r2c3"><span class="good">Material only lands</span> in gitignored <code>.claude/skills/{slug}/memories/</code></td>
+      </tr>
+      <tr>
+        <td data-i18n="what.r3c1">One flat blob, hard to evolve</td>
+        <td data-i18n="what.r3c2">A single "about me" file</td>
+        <td data-i18n="what.r3c3"><span class="good">Two-layer model</span> + Correction layer, append-only evolution</td>
+      </tr>
+      <tr>
+        <td data-i18n="what.r4c1">Untestable packaging</td>
+        <td data-i18n="what.r4c2">Copy-pasted skill folders</td>
+        <td data-i18n="what.r4c3"><span class="good">Skill-spec contract</span> + validator + pytest + ruff</td>
+      </tr>
     </table>
   </div>
 </section>
@@ -197,29 +222,29 @@
 <section id="concept" style="padding-top:24px">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Core concepts</div>
-      <h2>Two layers, one voice</h2>
+      <div class="kicker" data-i18n="concept.kicker">Core concepts</div>
+      <h2 data-i18n="concept.title">Two layers, one voice</h2>
     </div>
     <div class="concepts">
       <div class="card">
         <div class="ic">🧠</div>
-        <h3>Self Memory</h3>
-        <p><em>What you know and are.</em> Experiences, values, habits, important memories, relationships, growth trajectory.</p>
+        <h3 data-i18n="concept.c1h">Self Memory</h3>
+        <p data-i18n="concept.c1p"><em>What you know and are.</em> Experiences, values, habits, important memories, relationships, growth trajectory.</p>
       </div>
       <div class="card">
         <div class="ic">🗣️</div>
-        <h3>Persona</h3>
-        <p><em>How you respond.</em> Speaking style, emotional patterns, decision patterns, social behavior — labels turned into concrete behavioral rules.</p>
+        <h3 data-i18n="concept.c2h">Persona</h3>
+        <p data-i18n="concept.c2p"><em>How you respond.</em> Speaking style, emotional patterns, decision patterns, social behavior — labels turned into concrete behavioral rules.</p>
       </div>
       <div class="card">
         <div class="ic">🔄</div>
-        <h3>Correction layer</h3>
-        <p>Your conversational corrections land immediately and take priority over prior conclusions. The mirror evolves with you.</p>
+        <h3 data-i18n="concept.c3h">Correction layer</h3>
+        <p data-i18n="concept.c3p">Your conversational corrections land immediately and take priority over prior conclusions. The mirror evolves with you.</p>
       </div>
       <div class="card">
         <div class="ic">⚖️</div>
-        <h3>Two-layer resolution</h3>
-        <p>Resolve Persona first (<em>how</em> to reply), then Self Memory (<em>whether</em> the reply is true to you).</p>
+        <h3 data-i18n="concept.c4h">Two-layer resolution</h3>
+        <p data-i18n="concept.c4p">Resolve Persona first (<em>how</em> to reply), then Self Memory (<em>whether</em> the reply is true to you).</p>
       </div>
     </div>
   </div>
@@ -228,19 +253,19 @@
 <section id="pipeline">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">How it works</div>
-      <h2>Create → Evolve → Manage</h2>
+      <div class="kicker" data-i18n="pipe.kicker">How it works</div>
+      <h2 data-i18n="pipe.title">Create → Evolve → Manage</h2>
     </div>
     <div class="pipeline">
-      <div class="step"><div class="n">1</div><h4>Profile intake</h4><p>≤3 questions about who you are</p></div>
+      <div class="step"><div class="n">1</div><h4 data-i18n="pipe.s1h">Profile intake</h4><p data-i18n="pipe.s1p">≤3 questions about who you are</p></div>
       <div class="arrow">→</div>
-      <div class="step"><div class="n">2</div><h4>Import material</h4><p>Chats, diaries, photos — skippable, local only</p></div>
+      <div class="step"><div class="n">2</div><h4 data-i18n="pipe.s2h">Import material</h4><p data-i18n="pipe.s2p">Chats, diaries, photos — skippable, local only</p></div>
       <div class="arrow">→</div>
-      <div class="step"><div class="n">3</div><h4>Analyze &amp; preview</h4><p>Build Self Memory + Persona</p></div>
+      <div class="step"><div class="n">3</div><h4 data-i18n="pipe.s3h">Analyze &amp; preview</h4><p data-i18n="pipe.s3p">Build Self Memory + Persona</p></div>
       <div class="arrow">→</div>
-      <div class="step"><div class="n">4</div><h4>Write the self</h4><p>Lands in <code>.claude/skills/{slug}/</code></p></div>
+      <div class="step"><div class="n">4</div><h4 data-i18n="pipe.s4h">Write the self</h4><p data-i18n="pipe.s4p">Lands in <code>.claude/skills/{slug}/</code></p></div>
       <div class="arrow">→</div>
-      <div class="step"><div class="n">5</div><h4>Evolve</h4><p>Append-only corrections keep it current</p></div>
+      <div class="step"><div class="n">5</div><h4 data-i18n="pipe.s5h">Evolve</h4><p data-i18n="pipe.s5p">Append-only corrections keep it current</p></div>
     </div>
   </div>
 </section>
@@ -248,40 +273,40 @@
 <section id="quickstart">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Quick start</div>
-      <h2>Run it in minutes</h2>
-      <p>Requires Python <code>&gt;=3.9</code> and <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">uv</a>.</p>
+      <div class="kicker" data-i18n="qs.kicker">Quick start</div>
+      <h2 data-i18n="qs.title">Run it in minutes</h2>
+      <p data-i18n="qs.req">Requires Python <code>&gt;=3.9</code> and <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">uv</a>.</p>
     </div>
-    <pre class="code"><span class="c"># 1. Install dependencies</span>
+    <pre class="code"><span class="c" data-i18n="qs.c1"># 1. Install dependencies</span>
 $ <span class="cmd">uv sync --extra dev</span>
 
-<span class="c"># 2. Create your first self (Step A–E in SKILL.md)</span>
-<span class="c">#    A) profile intake  B) import material  C–E) analyze, preview, write</span>
+<span class="c" data-i18n="qs.c2"># 2. Create your first self (Step A–E in SKILL.md)</span>
+<span class="c" data-i18n="qs.c2b">#    A) profile intake  B) import material  C–E) analyze, preview, write</span>
 
-<span class="c"># 3. Validate package structure</span>
+<span class="c" data-i18n="qs.c3"># 3. Validate package structure</span>
 $ <span class="cmd">python3 scripts/validate_skill_package.py .</span>
-<span class="c"># → PASS: echo-me-skill package contract</span>
+<span class="c" data-i18n="qs.c3b"># → PASS: echo-me-skill package contract</span>
 
-<span class="c"># 4. Run tests and lint</span>
-$ <span class="cmd">uv run pytest -q</span>          <span class="c"># → 20 passed</span>
-$ <span class="cmd">uv run ruff check tools tests scripts</span>   <span class="c"># → All checks passed</span></pre>
+<span class="c" data-i18n="qs.c4"># 4. Run tests and lint</span>
+$ <span class="cmd">uv run pytest -q</span>          <span class="c" data-i18n="qs.c4b"># → 20 passed</span>
+$ <span class="cmd">uv run ruff check tools tests scripts</span>   <span class="c" data-i18n="qs.c4c"># → All checks passed</span></pre>
   </div>
 </section>
 
 <section id="manage" style="padding-top:24px">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Manage your selves</div>
-      <h2>Slash commands</h2>
+      <div class="kicker" data-i18n="cmd.kicker">Manage your selves</div>
+      <h2 data-i18n="cmd.title">Slash commands</h2>
     </div>
     <table class="cmd-table">
-      <tr><th>Trigger</th><th>Action</th></tr>
-      <tr><td><code>/{slug}</code></td><td>Full self (Self Memory + Persona)</td></tr>
-      <tr><td><code>/{slug}-self</code></td><td>Self Memory only</td></tr>
-      <tr><td><code>/{slug}-persona</code></td><td>Persona only</td></tr>
-      <tr><td><code>/list-echo</code></td><td>List all your selves</td></tr>
-      <tr><td><code>/echo-rollback {slug} {v}</code></td><td>Roll back to a version</td></tr>
-      <tr><td><code>/echo-delete {slug}</code></td><td>Delete a self (after confirmation)</td></tr>
+      <tr><th data-i18n="cmd.h1">Trigger</th><th data-i18n="cmd.h2">Action</th></tr>
+      <tr><td><code>/{slug}</code></td><td data-i18n="cmd.r1">Full self (Self Memory + Persona)</td></tr>
+      <tr><td><code>/{slug}-self</code></td><td data-i18n="cmd.r2">Self Memory only</td></tr>
+      <tr><td><code>/{slug}-persona</code></td><td data-i18n="cmd.r3">Persona only</td></tr>
+      <tr><td><code>/list-echo</code></td><td data-i18n="cmd.r4">List all your selves</td></tr>
+      <tr><td><code>/echo-rollback {slug} {v}</code></td><td data-i18n="cmd.r5">Roll back to a version</td></tr>
+      <tr><td><code>/echo-delete {slug}</code></td><td data-i18n="cmd.r6">Delete a self (after confirmation)</td></tr>
     </table>
   </div>
 </section>
@@ -289,14 +314,14 @@ $ <span class="cmd">uv run ruff check tools tests scripts</span>   <span class="
 <section id="safety" style="padding-top:24px">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Safety &amp; boundaries</div>
-      <h2>Your data stays yours</h2>
+      <div class="kicker" data-i18n="safe.kicker">Safety &amp; boundaries</div>
+      <h2 data-i18n="safe.title">Your data stays yours</h2>
     </div>
     <div class="safety-grid">
-      <div class="safety"><h4><span class="chk">✓</span> No fabricated content</h4><p>Built only from your raw material or explicitly stated info; gaps are asked about, never invented.</p></div>
-      <div class="safety"><h4><span class="chk">✓</span> Material never enters the repo</h4><p>Chats, photos and personal data land only in gitignored <code>.claude/skills/{slug}/memories/</code>.</p></div>
-      <div class="safety"><h4><span class="chk">✓</span> Local only</h4><p>Parsers do local file parsing — no web scraping, no unauthorized network actions.</p></div>
-      <div class="safety"><h4><span class="chk">✓</span> Honest validation</h4><p>A PASS on package validation proves completeness, not model behavior; real model eval is separate and explicit.</p></div>
+      <div class="safety"><h4><span class="chk">✓</span> <span data-i18n="safe.s1h">No fabricated content</span></h4><p data-i18n="safe.s1p">Built only from your raw material or explicitly stated info; gaps are asked about, never invented.</p></div>
+      <div class="safety"><h4><span class="chk">✓</span> <span data-i18n="safe.s2h">Material never enters the repo</span></h4><p data-i18n="safe.s2p">Chats, photos and personal data land only in gitignored <code>.claude/skills/{slug}/memories/</code>.</p></div>
+      <div class="safety"><h4><span class="chk">✓</span> <span data-i18n="safe.s3h">Local only</span></h4><p data-i18n="safe.s3p">Parsers do local file parsing — no web scraping, no unauthorized network actions.</p></div>
+      <div class="safety"><h4><span class="chk">✓</span> <span data-i18n="safe.s4h">Honest validation</span></h4><p data-i18n="safe.s4p">A PASS on package validation proves completeness, not model behavior; real model eval is separate and explicit.</p></div>
     </div>
   </div>
 </section>
@@ -304,25 +329,25 @@ $ <span class="cmd">uv run ruff check tools tests scripts</span>   <span class="
 <section id="repo" style="padding-top:24px">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Repository</div>
-      <h2>Open source</h2>
-      <p>Independent, fully rewritten brand built on <a href="https://github.com/notdog1998/yourself-skill" target="_blank" rel="noopener">yourself-skill</a> by notdog1998. Function ideas preserved; code, copy and examples original. MIT licensed.</p>
+      <div class="kicker" data-i18n="repo.kicker">Repository</div>
+      <h2 data-i18n="repo.title">Open source</h2>
+      <p data-i18n="repo.desc">Independent, fully rewritten brand built on <a href="https://github.com/notdog1998/yourself-skill" target="_blank" rel="noopener">yourself-skill</a> by notdog1998. Function ideas preserved; code, copy and examples original. MIT licensed.</p>
     </div>
     <div class="struct">
-      <div class="card"><h3>Layout</h3><p>├─ SKILL.md          # entry spec
-├─ prompts/          # Step A–E engine
-├─ tools/            # parsers + managers
-├─ evals/            # eval harness
-├─ scripts/          # package validator
+      <div class="card"><h3 data-i18n="repo.layout">Layout</h3><p>├─ SKILL.md          # <span data-i18n="repo.l1">entry spec</span>
+├─ prompts/          # <span data-i18n="repo.l2">Step A–E engine</span>
+├─ tools/            # <span data-i18n="repo.l3">parsers + managers</span>
+├─ evals/            # <span data-i18n="repo.l4">eval harness</span>
+├─ scripts/          # <span data-i18n="repo.l5">package validator</span>
 ├─ agents/openai.yaml
 ├─ selves/example_me/
-└─ docs/             # this site</p></div>
+└─ docs/             # <span data-i18n="repo.l6">this site</span></p></div>
       <div class="card" style="text-align:center;display:flex;flex-direction:column;justify-content:center">
-        <h3 style="margin-bottom:10px">Get involved</h3>
-        <p style="color:var(--fg-dim)">Issues, PRs and derivatives welcome.</p>
+        <h3 style="margin-bottom:10px" data-i18n="repo.inv">Get involved</h3>
+        <p style="color:var(--fg-dim)" data-i18n="repo.invp">Issues, PRs and derivatives welcome.</p>
         <div style="margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-          <a class="btn primary" href="https://github.com/xsoway/echo-me-skill/issues" target="_blank" rel="noopener">Open Issues</a>
-          <a class="btn ghost" href="https://github.com/xsoway/echo-me-skill#contributing" target="_blank" rel="noopener">Contribute</a>
+          <a class="btn primary" href="https://github.com/xsoway/echo-me-skill/issues" target="_blank" rel="noopener" data-i18n="repo.issues">Open Issues</a>
+          <a class="btn ghost" href="https://github.com/xsoway/echo-me-skill#contributing" target="_blank" rel="noopener" data-i18n="repo.contribute">Contribute</a>
         </div>
       </div>
     </div>
@@ -332,13 +357,185 @@ $ <span class="cmd">uv run ruff check tools tests scripts</span>   <span class="
 <footer>
   <div class="wrap">
     <div class="links">
-      <a href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener">Source</a>
-      <a href="https://github.com/xsoway/echo-me-skill/releases" target="_blank" rel="noopener">Releases</a>
-      <a href="https://github.com/xsoway/echo-me-skill/discussions" target="_blank" rel="noopener">Discussions</a>
-      <a href="https://github.com/xsoway/echo-me-skill/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+      <a href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener" data-i18n="foot.source">Source</a>
+      <a href="https://github.com/xsoway/echo-me-skill/releases" target="_blank" rel="noopener" data-i18n="foot.releases">Releases</a>
+      <a href="https://github.com/xsoway/echo-me-skill/discussions" target="_blank" rel="noopener" data-i18n="foot.discussions">Discussions</a>
+      <a href="https://github.com/xsoway/echo-me-skill/blob/main/LICENSE" target="_blank" rel="noopener" data-i18n="foot.license">MIT License</a>
     </div>
-    <p>echo-me-skill © 2026 <a href="https://github.com/xsoway" target="_blank" rel="noopener">xsoway</a>. Derived from yourself-skill by notdog1998.</p>
+    <p>echo-me-skill © 2026 <a href="https://github.com/xsoway" target="_blank" rel="noopener">xsoway</a>. <span data-i18n="foot.derived">Derived from yourself-skill by notdog1998.</span></p>
   </div>
 </footer>
+
+<script>
+(function () {
+  "use strict";
+  var I18N = {
+    "nav.what":      { en: "What",            zh: "是什么" },
+    "nav.concepts":  { en: "Concepts",        zh: "核心概念" },
+    "nav.pipeline":  { en: "Pipeline",        zh: "工作流" },
+    "nav.quick":     { en: "Quick start",     zh: "快速开始" },
+    "nav.commands":  { en: "Commands",        zh: "命令" },
+    "nav.safety":    { en: "Safety",          zh: "安全边界" },
+    "nav.github":    { en: "GitHub ↗",        zh: "GitHub ↗" },
+
+    "hero.title":    { en: "Distill yourself into a<br><span class=\"grad\">runnable digital self.</span>",
+                       zh: "把自己蒸馏成<br><span class=\"grad\">一个可运行的数字自我。</span>" },
+    "hero.sub":      { en: "Decompose your chat history, diaries and photos into a two-layer model — <strong>Self Memory</strong> + <strong>Persona</strong> — that thinks and speaks the way you do.",
+                       zh: "把聊天记录、日记与照片拆解成两层模型 —— <strong>自我记忆（Self Memory）</strong> + <strong>性格（Persona）</strong> —— 让它像你一样思考与表达。" },
+    "hero.tag":      { en: "Discoverable · Installable · Evallable — a personal AI twin as a self-contained Skill package",
+                       zh: "可发现 · 可安装 · 可评测 —— 一个自包含 Skill 包形式的个人 AI 数字孪生" },
+    "hero.star":     { en: "★ Star on GitHub", zh: "★ 在 GitHub 上收藏" },
+    "hero.start":    { en: "Get started ↓",    zh: "快速开始 ↓" },
+
+    "what.kicker":   { en: "What it is",       zh: "它是什么" },
+    "what.title":    { en: "An honest digital mirror", zh: "一面诚实的数字镜子" },
+    "what.desc":     { en: "Most attempts to \"digitize yourself\" either hallucinate a persona from nothing, or dump raw transcripts without structure. <strong>echo-me-skill</strong> avoids both.",
+                       zh: "多数“把自己数字化”的尝试，要么凭空臆造一个性格，要么把原始记录无结构地倾倒出来。<strong>echo-me-skill</strong> 两者都避免。" },
+    "what.h1":       { en: "Pain point",       zh: "痛点" },
+    "what.h2":       { en: "Typical approach", zh: "常见做法" },
+    "what.h3":       { en: "echo-me-skill",    zh: "echo-me-skill" },
+    "what.r1c1":     { en: "No real material → fabricated persona", zh: "没有真实素材 → 性格被凭空捏造" },
+    "what.r1c2":     { en: "Model \"guesses\" your personality",   zh: "模型“猜测”你的性格" },
+    "what.r1c3":     { en: "<span class=\"good\">Never fabricates:</span> only raw material you provide, or explicitly stated facts",
+                       zh: "<span class=\"good\">绝不臆造：</span>只用你提供的原始素材，或明确说明的事实" },
+    "what.r2c1":     { en: "Raw data leaks into the repo", zh: "原始数据泄露进仓库" },
+    "what.r2c2":     { en: "<span class=\"bad\">Transcripts committed to git</span>", zh: "<span class=\"bad\">对话记录被提交进 git</span>" },
+    "what.r2c3":     { en: "<span class=\"good\">Material only lands</span> in gitignored <code>.claude/skills/{slug}/memories/</code>",
+                       zh: "<span class=\"good\">素材只落到</span>被 git 忽略的 <code>.claude/skills/{slug}/memories/</code>" },
+    "what.r3c1":     { en: "One flat blob, hard to evolve", zh: "单一扁平文件，难以演进" },
+    "what.r3c2":     { en: "A single \"about me\" file",    zh: "一个“关于我”的单一文件" },
+    "what.r3c3":     { en: "<span class=\"good\">Two-layer model</span> + Correction layer, append-only evolution",
+                       zh: "<span class=\"good\">两层模型</span> + 修正层，只追加式演进" },
+    "what.r4c1":     { en: "Untestable packaging", zh: "无法测试的打包" },
+    "what.r4c2":     { en: "Copy-pasted skill folders", zh: "复制粘贴的 skill 文件夹" },
+    "what.r4c3":     { en: "<span class=\"good\">Skill-spec contract</span> + validator + pytest + ruff",
+                       zh: "<span class=\"good\">Skill 规范契约</span> + 校验器 + pytest + ruff" },
+
+    "concept.kicker":{ en: "Core concepts",    zh: "核心概念" },
+    "concept.title": { en: "Two layers, one voice", zh: "两层模型，一个声音" },
+    "concept.c1h":   { en: "Self Memory",      zh: "自我记忆" },
+    "concept.c1p":   { en: "<em>What you know and are.</em> Experiences, values, habits, important memories, relationships, growth trajectory.",
+                       zh: "<em>你知道什么、你是谁。</em>经历、价值观、习惯、重要记忆、人际关系、成长轨迹。" },
+    "concept.c2h":   { en: "Persona",          zh: "性格（Persona）" },
+    "concept.c2p":   { en: "<em>How you respond.</em> Speaking style, emotional patterns, decision patterns, social behavior — labels turned into concrete behavioral rules.",
+                       zh: "<em>你如何回应。</em>说话风格、情绪模式、决策模式、社交行为 —— 把标签转成具体的行事规则。" },
+    "concept.c3h":   { en: "Correction layer", zh: "修正层" },
+    "concept.c3p":   { en: "Your conversational corrections land immediately and take priority over prior conclusions. The mirror evolves with you.",
+                       zh: "你的对话修正立即生效，并优先于先前的结论。这面镜子与你一同成长。" },
+    "concept.c4h":   { en: "Two-layer resolution", zh: "两层解析" },
+    "concept.c4p":   { en: "Resolve Persona first (<em>how</em> to reply), then Self Memory (<em>whether</em> the reply is true to you).",
+                       zh: "先解析 Persona（<em>怎么</em>回应），再判自我记忆（这个回应<em>是否</em>忠于你）。" },
+
+    "pipe.kicker":   { en: "How it works",     zh: "工作原理" },
+    "pipe.title":    { en: "Create → Evolve → Manage", zh: "创建 → 演进 → 管理" },
+    "pipe.s1h":      { en: "Profile intake",   zh: "资料采集" },
+    "pipe.s1p":      { en: "≤3 questions about who you are", zh: "≤3 个关于你的问题" },
+    "pipe.s2h":      { en: "Import material",  zh: "导入素材" },
+    "pipe.s2p":      { en: "Chats, diaries, photos — skippable, local only", zh: "聊天、日记、照片 —— 可跳过，仅本地" },
+    "pipe.s3h":      { en: "Analyze &amp; preview", zh: "分析与预览" },
+    "pipe.s3p":      { en: "Build Self Memory + Persona", zh: "构建自我记忆 + 性格" },
+    "pipe.s4h":      { en: "Write the self",   zh: "写入自我" },
+    "pipe.s4p":      { en: "Lands in <code>.claude/skills/{slug}/</code>", zh: "落到 <code>.claude/skills/{slug}/</code>" },
+    "pipe.s5h":      { en: "Evolve",           zh: "演进" },
+    "pipe.s5p":      { en: "Append-only corrections keep it current", zh: "只追加式修正，保持最新" },
+
+    "qs.kicker":     { en: "Quick start",      zh: "快速开始" },
+    "qs.title":      { en: "Run it in minutes", zh: "几分钟跑起来" },
+    "qs.req":        { en: "Requires Python <code>&gt;=3.9</code> and <a href=\"https://docs.astral.sh/uv/\" target=\"_blank\" rel=\"noopener\">uv</a>.",
+                       zh: "需要 Python <code>&gt;=3.9</code> 与 <a href=\"https://docs.astral.sh/uv/\" target=\"_blank\" rel=\"noopener\">uv</a>。" },
+    "qs.c1":         { en: "# 1. Install dependencies", zh: "# 1. 安装依赖" },
+    "qs.c2":         { en: "# 2. Create your first self (Step A–E in SKILL.md)", zh: "# 2. 创建你的第一个自我（SKILL.md 中的步骤 A–E）" },
+    "qs.c2b":        { en: "#    A) profile intake  B) import material  C–E) analyze, preview, write", zh: "#    A) 资料采集  B) 导入素材  C–E) 分析、预览、写入" },
+    "qs.c3":         { en: "# 3. Validate package structure", zh: "# 3. 校验包结构" },
+    "qs.c3b":        { en: "# → PASS: echo-me-skill package contract", zh: "# → 通过：echo-me-skill 包契约校验" },
+    "qs.c4":         { en: "# 4. Run tests and lint", zh: "# 4. 运行测试与静态检查" },
+    "qs.c4b":        { en: "# → 20 passed",    zh: "# → 20 项通过" },
+    "qs.c4c":        { en: "# → All checks passed", zh: "# → 全部检查通过" },
+
+    "cmd.kicker":    { en: "Manage your selves", zh: "管理你的自我" },
+    "cmd.title":     { en: "Slash commands",   zh: "斜杠命令" },
+    "cmd.h1":        { en: "Trigger",          zh: "触发词" },
+    "cmd.h2":        { en: "Action",           zh: "作用" },
+    "cmd.r1":        { en: "Full self (Self Memory + Persona)", zh: "完整自我（自我记忆 + 性格）" },
+    "cmd.r2":        { en: "Self Memory only", zh: "仅自我记忆" },
+    "cmd.r3":        { en: "Persona only",     zh: "仅性格" },
+    "cmd.r4":        { en: "List all your selves", zh: "列出你的全部自我" },
+    "cmd.r5":        { en: "Roll back to a version", zh: "回滚到某个版本" },
+    "cmd.r6":        { en: "Delete a self (after confirmation)", zh: "删除一个自我（需确认）" },
+
+    "safe.kicker":   { en: "Safety &amp; boundaries", zh: "安全与边界" },
+    "safe.title":    { en: "Your data stays yours", zh: "你的数据始终属于你" },
+    "safe.s1h":      { en: "No fabricated content", zh: "无凭空捏造" },
+    "safe.s1p":      { en: "Built only from your raw material or explicitly stated info; gaps are asked about, never invented.",
+                       zh: "只基于你的原始素材或明确说明的信息构建；信息缺口会被询问，绝不编造。" },
+    "safe.s2h":      { en: "Material never enters the repo", zh: "素材绝不进入仓库" },
+    "safe.s2p":      { en: "Chats, photos and personal data land only in gitignored <code>.claude/skills/{slug}/memories/</code>.",
+                       zh: "聊天、照片与个人数据只会落到被 git 忽略的 <code>.claude/skills/{slug}/memories/</code>。" },
+    "safe.s3h":      { en: "Local only",       zh: "仅本地运行" },
+    "safe.s3p":      { en: "Parsers do local file parsing — no web scraping, no unauthorized network actions.",
+                       zh: "解析器只做本地文件解析 —— 不抓取网页，不做未授权的网络操作。" },
+    "safe.s4h":      { en: "Honest validation", zh: "诚实验证" },
+    "safe.s4p":      { en: "A PASS on package validation proves completeness, not model behavior; real model eval is separate and explicit.",
+                       zh: "包校验通过只证明完整性，不代表模型行为正确；真实模型评测是独立且显式进行的。" },
+
+    "repo.kicker":   { en: "Repository",       zh: "仓库" },
+    "repo.title":    { en: "Open source",      zh: "开源" },
+    "repo.desc":     { en: "Independent, fully rewritten brand built on <a href=\"https://github.com/notdog1998/yourself-skill\" target=\"_blank\" rel=\"noopener\">yourself-skill</a> by notdog1998. Function ideas preserved; code, copy and examples original. MIT licensed.",
+                       zh: "独立、完全重写的品牌，基于 notdog1998 的 <a href=\"https://github.com/notdog1998/yourself-skill\" target=\"_blank\" rel=\"noopener\">yourself-skill</a> 构建。保留功能思路；代码、文案与示例均为原创。基于 MIT 协议开源。" },
+    "repo.layout":   { en: "Layout",           zh: "目录结构" },
+    "repo.l1":       { en: "entry spec",       zh: "入口规范" },
+    "repo.l2":       { en: "Step A–E engine",  zh: "步骤 A–E 引擎" },
+    "repo.l3":       { en: "parsers + managers", zh: "解析器 + 管理器" },
+    "repo.l4":       { en: "eval harness",     zh: "评测框架" },
+    "repo.l5":       { en: "package validator", zh: "包校验器" },
+    "repo.l6":       { en: "this site",        zh: "本网站" },
+    "repo.inv":      { en: "Get involved",     zh: "参与贡献" },
+    "repo.invp":     { en: "Issues, PRs and derivatives welcome.", zh: "欢迎提交 Issue、PR 与衍生作品。" },
+    "repo.issues":   { en: "Open Issues",      zh: "打开 Issues" },
+    "repo.contribute":{ en: "Contribute",      zh: "参与贡献" },
+
+    "foot.source":   { en: "Source",           zh: "源码" },
+    "foot.releases": { en: "Releases",         zh: "版本发布" },
+    "foot.discussions":{ en: "Discussions",    zh: "讨论" },
+    "foot.license":  { en: "MIT License",      zh: "MIT 协议" },
+    "foot.derived":  { en: "Derived from yourself-skill by notdog1998.", zh: "衍生自 notdog1998 的 yourself-skill。" }
+  };
+
+  var KEY = "echo-me-skill-lang";
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) { saved = null; }
+  var lang = (saved === "zh" || saved === "en") ? saved : "en";
+  if (!saved && navigator.language && navigator.language.toLowerCase().indexOf("zh") === 0) {
+    lang = "zh";
+  }
+
+  function apply() {
+    document.documentElement.setAttribute("lang", lang);
+    document.title = lang === "zh"
+      ? "echo-me-skill — 把自己蒸馏成一个可运行的数字自我"
+      : "echo-me-skill — Distill yourself into a runnable digital self";
+    var nodes = document.querySelectorAll("[data-i18n]");
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var t = I18N[el.getAttribute("data-i18n")];
+      if (t && t[lang]) { el.innerHTML = t[lang]; }
+    }
+    var btns = document.querySelectorAll(".lang button[data-lang]");
+    for (var j = 0; j < btns.length; j++) {
+      btns[j].classList.toggle("active", btns[j].getAttribute("data-lang") === lang);
+    }
+    try { localStorage.setItem(KEY, lang); } catch (e) { /* ignore */ }
+  }
+
+  var langBtns = document.querySelectorAll(".lang button[data-lang]");
+  for (var k = 0; k < langBtns.length; k++) {
+    langBtns[k].addEventListener("click", function () {
+      lang = this.getAttribute("data-lang");
+      apply();
+    });
+  }
+  apply();
+})();
+</script>
 </body>
 </html>
