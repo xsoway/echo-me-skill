@@ -130,7 +130,7 @@ python3 scripts/validate_skill_package.py .
 # → PASS: echo-me-skill package contract
 
 # 4. Run tests and lint
-uv run pytest -q       # → 20 passed
+uv run pytest -q       # → 24 passed
 uv run ruff check tools tests scripts   # → All checks passed
 ```
 

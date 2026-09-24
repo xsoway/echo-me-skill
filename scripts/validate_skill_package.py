@@ -58,8 +58,15 @@ def main() -> int:
 
     # 扫描全部文本文件（.md/.yaml/.yml/.py/.html/.toml/.json/.txt 等），
     # 二进制文件（如图片，.gitattributes 已标记）跳过 —— 避免漏扫 Python/HTML 等源码。
+    # 跳过两点，避免误报：
+    #  1) 本脚本自身：SECRET/ABSOLUTE_PATH 的正则源码会被自己的扫描规则误判；
+    #  2) tests/：夹具故意携带密钥/绝对路径载荷来验证扫描器，不属于真实发布内容。
     for path in root.rglob("*"):
         if not path.is_file():
+            continue
+        if path == root / "scripts" / "validate_skill_package.py":
+            continue
+        if "tests" in path.parts:
             continue
         try:
             text = path.read_text(encoding="utf-8")
