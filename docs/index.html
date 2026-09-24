@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="echo-me-skill — distill your chat history, diaries and photos into a runnable digital self (Self Memory + Persona). A skill-spec compliant Skill package under MIT.">
+<meta name="author" content="xsoway">
+<meta property="og:title" content="echo-me-skill — Distill yourself into a runnable digital self">
+<meta property="og:description" content="A personal AI twin as a self-contained Skill package: Self Memory + Persona from your real material. Discoverable · Installable · Evallable.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://xsoway.github.io/echo-me-skill/">
+<title>echo-me-skill — Distill yourself into a runnable digital self</title>
+<style>
+  :root{
+    --bg:#0b0e1a;
+    --bg-2:#10152a;
+    --bg-3:#161d38;
+    --fg:#e8ecf8;
+    --fg-dim:#9aa6c8;
+    --fg-faint:#66729b;
+    --accent:#7aa2ff;
+    --accent-2:#7cffb2;
+    --accent-3:#ff8fd0;
+    --border:#232c4d;
+    --card:#121831;
+    --maxw:1080px;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 15% -10%,#1b2450 0%,transparent 55%),
+               radial-gradient(1000px 500px at 95% 110%,#1c2548 0%,transparent 55%),
+               var(--bg);
+    color:var(--fg);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  /* echo rings background decoration */
+  .rings{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
+  .rings span{position:absolute;border:1px solid var(--border);border-radius:50%}
+  .rings span:nth-child(1){width:520px;height:520px;top:-220px;right:-120px}
+  .rings span:nth-child(2){width:760px;height:760px;top:-320px;right:-260px;opacity:.5}
+  .rings span:nth-child(3){width:980px;height:980px;top:-430px;right:-400px;opacity:.3}
+
+  header.site{position:sticky;top:0;z-index:20;background:rgba(11,14,26,.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px}
+  .brand .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 14px var(--accent);animation:pulse 2.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+  .nav-links{display:flex;gap:22px;align-items:center;font-size:.92rem}
+  .nav-links a{color:var(--fg-dim)}
+  .nav-links a:hover{color:var(--fg)}
+  .nav-links .btn{background:var(--bg-3);border:1px solid var(--border);color:var(--fg);padding:7px 14px;border-radius:9px}
+  .nav-links .btn:hover{color:var(--fg);border-color:var(--accent);text-decoration:none}
+  .lang{color:var(--fg-faint);font-size:.85rem}
+
+  .hero{position:relative;z-index:1;padding:96px 0 72px;text-align:center}
+  .hero .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+  .hero .badges img{height:20px}
+  .hero h1{font-size:clamp(2.2rem,5.5vw,3.6rem);letter-spacing:-.5px;font-weight:800;line-height:1.15;margin-bottom:18px}
+  .hero h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p.sub{font-size:clamp(1.05rem,2.4vw,1.4rem);color:var(--fg-dim);max-width:640px;margin:0 auto 14px}
+  .hero p.tag{color:var(--fg-faint);font-size:.95rem;letter-spacing:.5px}
+  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:11px;font-weight:600;font-size:1rem;transition:.18s}
+  .btn.primary{background:linear-gradient(135deg,var(--accent),#5b7dff);color:#0b0e1a}
+  .btn.primary:hover{filter:brightness(1.1);text-decoration:none;transform:translateY(-1px)}
+  .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--fg)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--fg);text-decoration:none;transform:translateY(-1px)}
+
+  section{position:relative;z-index:1;padding:56px 0}
+  .section-head{text-align:center;margin-bottom:44px}
+  .section-head .kicker{color:var(--accent-2);font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+  .section-head h2{font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:800;letter-spacing:-.3px}
+  .section-head p{color:var(--fg-dim);max-width:640px;margin:14px auto 0}
+
+  /* core concepts */
+  .concepts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:.2s}
+  .card:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .card .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;margin-bottom:16px;background:var(--bg-3)}
+  .card h3{font-size:1.12rem;font-weight:700;margin-bottom:8px}
+  .card p{color:var(--fg-dim);font-size:.95rem}
+
+  /* pipeline */
+  .pipeline{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap;justify-content:center}
+  .step{flex:1;min-width:170px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;text-align:center}
+  .step .n{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#0b0e1a;font-weight:800;display:grid;place-items:center;margin:0 auto 12px}
+  .step h4{font-size:1rem;margin-bottom:6px}
+  .step p{color:var(--fg-dim);font-size:.88rem}
+  .step .arrow{align-self:center;color:var(--fg-faint);font-size:1.4rem;margin:0 -4px}
+
+  /* why comparison */
+  table.cmp{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;font-size:.95rem}
+  table.cmp th,table.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--border)}
+  table.cmp th{background:var(--bg-3);font-weight:700}
+  table.cmp tr:last-child td{border-bottom:none}
+  table.cmp td:first-child{font-weight:600;color:var(--fg)}
+  table.cmp .bad{color:#f28b82}
+  table.cmp .good{color:var(--accent-2)}
+
+  /* safety */
+  .safety-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .safety{padding:20px 24px;border-left:3px solid var(--accent);background:var(--card);border-radius:0 12px 12px 0}
+  .safety h4{display:flex;align-items:center;gap:10px;font-size:1rem;margin-bottom:6px}
+  .safety h4 .chk{color:var(--accent-2)}
+  .safety p{color:var(--fg-dim);font-size:.92rem}
+
+  /* code */
+  pre.code{background:#0a0e1d;border:1px solid var(--border);border-radius:var(--radius);padding:20px;overflow-x:auto;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;line-height:1.6;color:#c9d4f0}
+  pre.code .c{color:var(--fg-faint)}
+  pre.code .cmd{color:var(--accent-2)}
+
+  /* commands table */
+  table.cmd-table{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--card);border-radius:var(--radius);overflow:hidden}
+  table.cmd-table th,table.cmd-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border)}
+  table.cmd-table th{background:var(--bg-3)}
+  table.cmd-table tr:last-child td{border-bottom:none}
+  table.cmd-table code{font-family:"SF Mono",ui-monospace,Menlo,monospace;color:var(--accent-2);font-size:.85em}
+
+  .struct{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .struct .card p{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:.78rem;line-height:1.8;color:var(--fg-dim);white-space:pre}
+
+  footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:40px 0 56px;text-align:center;color:var(--fg-faint);font-size:.9rem}
+  footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+  footer .links a{color:var(--fg-dim)}
+  footer .links a:hover{color:var(--fg)}
+
+  @media(max-width:720px){
+    .nav-links .hide-sm{display:none}
+    .hero{padding:64px 0 48px}
+    section{padding:40px 0}
+    .pipeline .arrow{transform:rotate(90deg)}
+  }
+</style>
+</head>
+<body>
+<div class="rings"><span></span><span></span><span></span></div>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="brand"><span class="dot"></span> echo-me-skill</div>
+    <nav class="nav-links">
+      <a href="#what" class="hide-sm">What</a>
+      <a href="#concept" class="hide-sm">Concepts</a>
+      <a href="#pipeline" class="hide-sm">Pipeline</a>
+      <a href="#quickstart" class="hide-sm">Quick start</a>
+      <a href="#manage" class="hide-sm">Commands</a>
+      <a href="#safety" class="hide-sm">Safety</a>
+      <a class="btn" href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener">GitHub ↗</a>
+      <span class="lang"><a href="https://github.com/xsoway/echo-me-skill/blob/main/README.zh-CN.md" target="_blank" rel="noopener">中文</a></span>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="badges">
+      <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg">
+      <img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg">
+      <img alt="Status" src="https://img.shields.io/badge/status-beta-yellow.svg">
+      <img alt="Python" src="https://img.shields.io/badge/python-3.9%2B-blue.svg">
+    </div>
+    <h1>Distill yourself into a<br><span class="grad">runnable digital self.</span></h1>
+    <p class="sub">Decompose your chat history, diaries and photos into a two-layer model — <strong>Self Memory</strong> + <strong>Persona</strong> — that thinks and speaks the way you do.</p>
+    <p class="tag">Discoverable · Installable · Evallable — a personal AI twin as a self-contained Skill package</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener">★ Star on GitHub</a>
+      <a class="btn ghost" href="#quickstart">Get started ↓</a>
+    </div>
+  </div>
+</section>
+
+<section id="what">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What it is</div>
+      <h2>An honest digital mirror</h2>
+      <p>Most attempts to "digitize yourself" either hallucinate a persona from nothing, or dump raw transcripts without structure. <strong>echo-me-skill</strong> avoids both.</p>
+    </div>
+    <table class="cmp">
+      <tr><th>Pain point</th><th>Typical approach</th><th>echo-me-skill</th></tr>
+      <tr><td>No real material → fabricated persona</td><td>Model "guesses" your personality</td><td><span class="good">Never fabricates:</span> only raw material you provide, or explicitly stated facts</td></tr>
+      <tr><td>Raw data leaks into the repo</td><td><span class="bad">Transcripts committed to git</span></td><td><span class="good">Material only lands</span> in gitignored <code>.claude/skills/{slug}/memories/</code></td></tr>
+      <tr><td>One flat blob, hard to evolve</td><td>A single "about me" file</td><td><span class="good">Two-layer model</span> + Correction layer, append-only evolution</td></tr>
+      <tr><td>Untestable packaging</td><td>Copy-pasted skill folders</td><td><span class="good">Skill-spec contract</span> + validator + pytest + ruff</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="concept" style="padding-top:24px">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Core concepts</div>
+      <h2>Two layers, one voice</h2>
+    </div>
+    <div class="concepts">
+      <div class="card">
+        <div class="ic">🧠</div>
+        <h3>Self Memory</h3>
+        <p><em>What you know and are.</em> Experiences, values, habits, important memories, relationships, growth trajectory.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🗣️</div>
+        <h3>Persona</h3>
+        <p><em>How you respond.</em> Speaking style, emotional patterns, decision patterns, social behavior — labels turned into concrete behavioral rules.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔄</div>
+        <h3>Correction layer</h3>
+        <p>Your conversational corrections land immediately and take priority over prior conclusions. The mirror evolves with you.</p>
+      </div>
+      <div class="card">
+        <div class="ic">⚖️</div>
+        <h3>Two-layer resolution</h3>
+        <p>Resolve Persona first (<em>how</em> to reply), then Self Memory (<em>whether</em> the reply is true to you).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pipeline">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>Create → Evolve → Manage</h2>
+    </div>
+    <div class="pipeline">
+      <div class="step"><div class="n">1</div><h4>Profile intake</h4><p>≤3 questions about who you are</p></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">2</div><h4>Import material</h4><p>Chats, diaries, photos — skippable, local only</p></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">3</div><h4>Analyze &amp; preview</h4><p>Build Self Memory + Persona</p></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">4</div><h4>Write the self</h4><p>Lands in <code>.claude/skills/{slug}/</code></p></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="n">5</div><h4>Evolve</h4><p>Append-only corrections keep it current</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="quickstart">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Quick start</div>
+      <h2>Run it in minutes</h2>
+      <p>Requires Python <code>&gt;=3.9</code> and <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">uv</a>.</p>
+    </div>
+    <pre class="code"><span class="c"># 1. Install dependencies</span>
+$ <span class="cmd">uv sync --extra dev</span>
+
+<span class="c"># 2. Create your first self (Step A–E in SKILL.md)</span>
+<span class="c">#    A) profile intake  B) import material  C–E) analyze, preview, write</span>
+
+<span class="c"># 3. Validate package structure</span>
+$ <span class="cmd">python3 scripts/validate_skill_package.py .</span>
+<span class="c"># → PASS: echo-me-skill package contract</span>
+
+<span class="c"># 4. Run tests and lint</span>
+$ <span class="cmd">uv run pytest -q</span>          <span class="c"># → 20 passed</span>
+$ <span class="cmd">uv run ruff check tools tests scripts</span>   <span class="c"># → All checks passed</span></pre>
+  </div>
+</section>
+
+<section id="manage" style="padding-top:24px">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Manage your selves</div>
+      <h2>Slash commands</h2>
+    </div>
+    <table class="cmd-table">
+      <tr><th>Trigger</th><th>Action</th></tr>
+      <tr><td><code>/{slug}</code></td><td>Full self (Self Memory + Persona)</td></tr>
+      <tr><td><code>/{slug}-self</code></td><td>Self Memory only</td></tr>
+      <tr><td><code>/{slug}-persona</code></td><td>Persona only</td></tr>
+      <tr><td><code>/list-echo</code></td><td>List all your selves</td></tr>
+      <tr><td><code>/echo-rollback {slug} {v}</code></td><td>Roll back to a version</td></tr>
+      <tr><td><code>/echo-delete {slug}</code></td><td>Delete a self (after confirmation)</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="safety" style="padding-top:24px">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Safety &amp; boundaries</div>
+      <h2>Your data stays yours</h2>
+    </div>
+    <div class="safety-grid">
+      <div class="safety"><h4><span class="chk">✓</span> No fabricated content</h4><p>Built only from your raw material or explicitly stated info; gaps are asked about, never invented.</p></div>
+      <div class="safety"><h4><span class="chk">✓</span> Material never enters the repo</h4><p>Chats, photos and personal data land only in gitignored <code>.claude/skills/{slug}/memories/</code>.</p></div>
+      <div class="safety"><h4><span class="chk">✓</span> Local only</h4><p>Parsers do local file parsing — no web scraping, no unauthorized network actions.</p></div>
+      <div class="safety"><h4><span class="chk">✓</span> Honest validation</h4><p>A PASS on package validation proves completeness, not model behavior; real model eval is separate and explicit.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="repo" style="padding-top:24px">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Repository</div>
+      <h2>Open source</h2>
+      <p>Independent, fully rewritten brand built on <a href="https://github.com/notdog1998/yourself-skill" target="_blank" rel="noopener">yourself-skill</a> by notdog1998. Function ideas preserved; code, copy and examples original. MIT licensed.</p>
+    </div>
+    <div class="struct">
+      <div class="card"><h3>Layout</h3><p>├─ SKILL.md          # entry spec
+├─ prompts/          # Step A–E engine
+├─ tools/            # parsers + managers
+├─ evals/            # eval harness
+├─ scripts/          # package validator
+├─ agents/openai.yaml
+├─ selves/example_me/
+└─ docs/             # this site</p></div>
+      <div class="card" style="text-align:center;display:flex;flex-direction:column;justify-content:center">
+        <h3 style="margin-bottom:10px">Get involved</h3>
+        <p style="color:var(--fg-dim)">Issues, PRs and derivatives welcome.</p>
+        <div style="margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a class="btn primary" href="https://github.com/xsoway/echo-me-skill/issues" target="_blank" rel="noopener">Open Issues</a>
+          <a class="btn ghost" href="https://github.com/xsoway/echo-me-skill#contributing" target="_blank" rel="noopener">Contribute</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://github.com/xsoway/echo-me-skill" target="_blank" rel="noopener">Source</a>
+      <a href="https://github.com/xsoway/echo-me-skill/releases" target="_blank" rel="noopener">Releases</a>
+      <a href="https://github.com/xsoway/echo-me-skill/discussions" target="_blank" rel="noopener">Discussions</a>
+      <a href="https://github.com/xsoway/echo-me-skill/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+    </div>
+    <p>echo-me-skill © 2026 <a href="https://github.com/xsoway" target="_blank" rel="noopener">xsoway</a>. Derived from yourself-skill by notdog1998.</p>
+  </div>
+</footer>
+</body>
+</html>
