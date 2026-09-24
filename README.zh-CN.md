@@ -1,3 +1,7 @@
+---
+updated: 2026-09-24 06:30:55
+---
+
 <p align="center">
   <img alt="版本" src="https://img.shields.io/badge/version-1.0.0-blue.svg">
   <img alt="协议" src="https://img.shields.io/badge/license-MIT-green.svg">
@@ -31,7 +35,7 @@
 
 ## 是什么
 
-`echo-me-skill` 是一个符合 [skill-spec](https://github.com/yourself-skill/skill-spec) 工程契约的 **Skill 包**：把**聊天记录、日记、照片**和你对自我的描述，解构为两层模型——**Self Memory（自我记忆）** + **Persona（人格）**——生成一个能用你的口头禅思考、用你的逻辑回话的自我镜像。
+`echo-me-skill` 是一个符合 [skill-spec](https://github.com/xsoway/skill-spec) 工程契约的 **Skill 包**：把**聊天记录、日记、照片**和你对自我的描述，解构为两层模型——**Self Memory（自我记忆）** + **Persona（人格）**——生成一个能用你的口头禅思考、用你的逻辑回话的自我镜像。
 
 本包是对开源项目 [create-yourself](https://github.com/notdog1998/yourself-skill)（`yourself-skill`，作者 notdog1998）的**独立品牌全量重写**：保留函数思路，但代码、文案、示例全部原创，独立署名，基于 MIT 许可分发，欢迎发 issue、PR 与二次开发。
 
