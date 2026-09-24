@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 2026/09/23 22:52
 # @Filename : version_manager.py
-# @Author   : Alan_Hsu
+# @Author   : xsoway
 """版本存档与回滚管理器
 
 对自我 Skill 做版本备份、回滚与列表查询。每次更新前自动存档，支持回滚到历史版本。
@@ -67,12 +67,15 @@ def backup(base_dir: str, slug: str) -> str:
 
 
 def _find_version_dir(skill_dir: Path, version: str) -> Path | None:
-    """在 versions/ 下找到匹配版本目录（前缀匹配）。"""
+    """在 versions/ 下找到匹配版本目录（版本前缀或完整目录名均可匹配）。"""
     versions_dir = skill_dir / "versions"
     if not versions_dir.is_dir():
         return None
     for vname in sorted(versions_dir.iterdir()):
-        if vname.name.startswith(version) or vname.name == version:
+        # 备份目录名形如 {version}_{timestamp}。既支持按完整目录名匹配
+        # （rollback 传完整名），也支持按 "_" 前的版本段精确匹配 ——
+        # 避免 startswith 前缀误配（如 "v1" 误中 "v10_..."）。
+        if vname.name == version or vname.name.split("_", 1)[0] == version:
             return vname
     return None
 

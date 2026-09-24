@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 2026/09/23 22:35
 # @Filename : wechat_parser.py
-# @Author   : Alan_Hsu
+# @Author   : xsoway
 """微信聊天记录解析器
 
 解析主流微信导出工具的聊天记录，提取「目标对象」的说话特征用于构建 Self Memory / Persona。

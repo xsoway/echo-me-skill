@@ -56,10 +56,15 @@ def main() -> int:
         problems.append("agents metadata.key must match directory")
     problems.extend(f"SKILL.md missing heading {h}" for h in REQUIRED_HEADINGS if h not in skill)
 
+    # 扫描全部文本文件（.md/.yaml/.yml/.py/.html/.toml/.json/.txt 等），
+    # 二进制文件（如图片，.gitattributes 已标记）跳过 —— 避免漏扫 Python/HTML 等源码。
     for path in root.rglob("*"):
-        if not path.is_file() or path.suffix not in {".md", ".yaml", ".yml"}:
+        if not path.is_file():
             continue
-        text = path.read_text(encoding="utf-8")
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue  # 二进制文件，跳过
         if SECRET.search(text):
             problems.append(f"credential-like content in {path.relative_to(root)}")
         if ABSOLUTE_PATH.search(text):

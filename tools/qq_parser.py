@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 2026/09/23 22:38
 # @Filename : qq_parser.py
-# @Author   : Alan_Hsu
+# @Author   : xsoway
 """QQ 聊天记录解析器
 
 支持 QQ 消息管理器导出的 txt 与 mht 格式，提取目标对象的说话特征。

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 2026/09/23 22:40
 # @Filename : social_parser.py
-# @Author   : Alan_Hsu
+# @Author   : xsoway
 """社交媒体内容扫描器
 
 扫描目录，把图片与文本文件分类列出，供后续读取分析（图片用 Read 工具查看）。

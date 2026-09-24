@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 2026/09/23 22:42
 # @Filename : photo_analyzer.py
-# @Author   : Alan_Hsu
+# @Author   : xsoway
 """照片元信息分析器
 
 提取照片 EXIF 信息（拍摄时间、GPS 地点），按时间排序生成个人时间线与常去地点线索。

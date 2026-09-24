@@ -85,6 +85,26 @@ class TestVersionManager:
             version_manager.rollback(str(tmp_path), "demo", "v999")
         assert exc.value.code == 1
 
+    def test_rollback_exact_version_prefix_not_ambiguous(self, tmp_path):
+        """回归：回滚到 v1 不得误选中 v10_... 备份（前缀精确匹配）。
+
+        备份目录名为 {version}_{timestamp}；v10_... 在字典序上排在 v1_... 之前，
+        若用 startswith("v1") 匹配会误恢复 v10 快照。必须按 "_" 前的版本段精确匹配。
+        """
+        skill_dir = _make_skill(tmp_path)
+        versions = skill_dir / "versions"
+        versions.mkdir(exist_ok=True)
+        # 构造 v1 与 v10 两个快照，v10 用更早时间戳以排在 v1 之前（字典序）
+        (versions / "v10_19990101_000000").mkdir()
+        (versions / "v10_19990101_000000" / "self.md").write_text("V10 内容", encoding="utf-8")
+        (versions / "v1_20260102_000000").mkdir()
+        (versions / "v1_20260102_000000" / "self.md").write_text("V1 内容", encoding="utf-8")
+        # 修改当前 self.md，再回滚到 v1
+        (skill_dir / "self.md").write_text("当前内容", encoding="utf-8")
+        version_manager.rollback(str(tmp_path), "demo", "v1")
+        # 应恢复 v1 快照而非 v10
+        assert (skill_dir / "self.md").read_text(encoding="utf-8") == "V1 内容"
+
     def test_list_versions_no_history(self, tmp_path, capsys):
         """边界：无历史版本时提示为空。"""
         _make_skill(tmp_path)

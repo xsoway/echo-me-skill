@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 2026/09/23 23:00
 # @Filename : __init__.py
-# @Author   : Alan_Hsu
+# @Author   : xsoway
 """echo-me-skill 工具包
 
 包含微信/QQ/社交内容解析器、照片 EXIF 分析器、以及自我 Skill 的文件与版本管理器。

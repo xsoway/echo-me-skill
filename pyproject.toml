@@ -22,8 +22,21 @@ dev = ["pytest>=7.0", "ruff>=0.4"]
 where = ["."]
 include = ["tools*"]
 
-[tool.setuptools]
-include-package-data = true
+[tool.setuptools.data-files]
+# 把 Skill 契约载荷（SKILL.md、prompts、agents、evals、scripts、references、examples）
+# 打进 wheel，保证 pip install 后能拿到完整 Skill 内容，而不只是 tools 包。
+"echo-me-skill" = [
+    "SKILL.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "prompts/*.md",
+    "agents/*.yaml",
+    "evals/*.yaml",
+    "evals/cases/*.yaml",
+    "scripts/*.py",
+    "references/*.md",
+    "examples/*.md",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

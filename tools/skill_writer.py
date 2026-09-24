@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time     : 2026/09/23 22:50
 # @Filename : skill_writer.py
-# @Author   : Alan_Hsu
+# @Author   : xsoway
 """自我 Skill 文件管理器
 
 管理生成后的自我 Skill 目录：列出、初始化、组合 SKILL.md、完整创建。
